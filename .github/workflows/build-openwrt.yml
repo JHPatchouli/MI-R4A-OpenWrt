@@ -73,7 +73,10 @@ jobs:
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
-
+      
+    - name: Add UA2F&RKP-IPID
+      run: cd openwrt && git clone https://github.com/EOYOHOO/UA2F.git package/UA2F && git clone https://github.com/EOYOHOO/rkp-ipid.git package/rkp-ipid
+    
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
