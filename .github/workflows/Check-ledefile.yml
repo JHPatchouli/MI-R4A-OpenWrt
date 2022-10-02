@@ -32,6 +32,12 @@ jobs:
       id: Clone
       run: |
         git clone $REPO_URL
+        
+    - name: Feeds update && install
+      id: Feeds
+      run: |
+        cd ./lede && ./feed/scripts/feeds updata -a && ./feed/scripts/feeds install -a
+      
     - name: Show 
       id: Show
       run: |
