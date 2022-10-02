@@ -17,8 +17,10 @@ env:
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: 0 */18 * * *
+    inputs:
+      trpath:
+        description: 'tree path'
+        default: './'
 
 jobs:
   check:
@@ -30,4 +32,7 @@ jobs:
       id: Clone
       run: |
         git clone $REPO_URL
-        cd ./lede && tree
+    - name: Show 
+      id: Show
+      run: |
+        cd ./lede && cd github.event.inputs.trpath && tree
