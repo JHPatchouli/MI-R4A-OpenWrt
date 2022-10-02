@@ -35,4 +35,4 @@ jobs:
     - name: Show 
       id: Show
       run: |
-        cd ./lede && cd github.event.inputs.trpath && tree
+        cd ./lede && cd ${{ github.event.inputs.trpath }} && tree
