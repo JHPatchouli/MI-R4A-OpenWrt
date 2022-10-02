@@ -36,7 +36,7 @@ jobs:
     - name: Feeds update && install
       id: Feeds
       run: |
-        cd ./lede && ./feed/scripts/feeds updata -a && ./feed/scripts/feeds install -a
+        cd lede && ./scripts/feeds update -a ./scripts/feeds install -a
       
     - name: Show 
       id: Show
