@@ -84,7 +84,7 @@ jobs:
     - name: Remove&Clone libnetfilter-queue
       run: |
         cd openwrt && rm -rf ./feeds/packages/libs/libnetfilter-queue
-        cd .. && git clone https://github.com/openwrt/packages && mv packages/libs/libnetfilter-queue lede/feeds/packages/libs/
+        cd .. && git clone https://github.com/openwrt/packages && mv packages/libs/libnetfilter-queue openwrt/feeds/packages/libs/
 
     - name: Load custom configuration
       run: |
