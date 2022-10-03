@@ -18,6 +18,10 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      kernel:
+        description: 'SSH Config kernel'
+        required: true
+        default: 'true'
 
 env:
   REPO_URL: https://github.com/JHPatchouli/lede
@@ -77,6 +81,11 @@ jobs:
     - name: Add UA2F&RKP-IPID
       run: cd openwrt && git clone https://github.com/EOYOHOO/UA2F.git package/UA2F && git clone https://github.com/EOYOHOO/rkp-ipid.git package/rkp-ipid
     
+    - name: Remove&Clone libnetfilter-queue
+      run: |
+        cd openwrt && rm -rf ./feeds/packages/libs/libnetfilter-queue
+        cd .. && git clone https://github.com/openwrt/packages && mv packages/libs/libnetfilter-queue lede/feeds/packages/libs/
+
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
@@ -100,6 +109,13 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        
+    - name: Kernel Config
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.kernel == 'true' && github.event.inputs.kernel  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}    
 
     - name: Compile the firmware
       id: compile
