@@ -9,7 +9,7 @@
 # Description: Source code update checker
 #
 
-name: Check-ledefile
+name: 检查源码文件
 
 env:
   REPO_URL: https://github.com/JHPatchouli/lede
@@ -28,17 +28,17 @@ jobs:
 
     steps:
 
-    - name: Clone
+    - name: 克隆仓库
       id: Clone
       run: |
         git clone $REPO_URL
         
-    - name: Feeds update && install
+    - name: Feeds 检查更新 && 安装
       id: Feeds
       run: |
         cd lede && ./scripts/feeds update -a ./scripts/feeds install -a
       
-    - name: Show 
+    - name: 展示文件树 
       id: Show
       run: |
         cd ./lede && cd ${{ github.event.inputs.trpath }} && tree
