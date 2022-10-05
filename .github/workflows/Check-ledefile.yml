@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       trpath:
-        description: 'tree path'
+        description: '相对路径-如"./" "./bin" "./packages"'
         default: './'
 
 jobs:
