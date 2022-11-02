@@ -24,7 +24,7 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/JHPatchouli/lede
+  REPO_URL: https://github.com/JHPatchouli/lede-32M
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
