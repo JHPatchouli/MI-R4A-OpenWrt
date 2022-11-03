@@ -2,7 +2,7 @@
 
 ### R4A-32Mflash魔改专用action编译仓库
 
-A template for building OpenWrt with GitHub Actions
+A Modify XiaomiRouter-4A-G-32Mflash action repositorie
 ## Credits
 
 - [Microsoft Azure](https://azure.microsoft.com)
