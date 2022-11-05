@@ -15,7 +15,7 @@
 
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-echo 'src-git luci-app-argon-config https://github.com/jerrykuku/luci-app-argon-config' >>feeds.conf.default
+echo 'src-git argon_config https://github.com/jerrykuku/luci-app-argon-config.git' >>feeds.conf.default
 
 
 rm -rf package/lean/luci-theme-argon
