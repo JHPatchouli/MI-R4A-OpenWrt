@@ -80,11 +80,6 @@ jobs:
       
     - name: 加入UA2F&RKP-IPID(校园网反检测)
       run: cd openwrt && git clone https://github.com/EOYOHOO/UA2F.git package/UA2F && git clone https://github.com/EOYOHOO/rkp-ipid.git package/rkp-ipid
-    
-    - name: 更换官方libnetfilter-queue
-      run: |
-        cd openwrt && rm -rf ./feeds/packages/libs/libnetfilter-queue
-        cd .. && git clone https://github.com/openwrt/packages && mv packages/libs/libnetfilter-queue openwrt/feeds/packages/libs/
 
     - name: 载入编译配置
       run: |
@@ -100,6 +95,16 @@ jobs:
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    
+    - name: 初始化内核配置
+      run: cd openwrt && make kernel_menuconfig -j$(nproc) V=cs
+    
+    - name: SSH配置内核文件
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.kernel == 'true' && github.event.inputs.kernel  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}    
 
     - name: 下载编译所需文件
       id: package
@@ -109,13 +114,6 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-        
-    - name: SSH配置内核文件
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.kernel == 'true' && github.event.inputs.kernel  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}    
 
     - name: 编译固件
       id: compile
